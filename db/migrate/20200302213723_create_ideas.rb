@@ -4,7 +4,7 @@ class CreateIdeas < ActiveRecord::Migration[5.2]
       t.string :title
       t.text :post
       t.timestamps
-      t.integer :user_id
+      t.integer :generator_id
     end
   end
 end

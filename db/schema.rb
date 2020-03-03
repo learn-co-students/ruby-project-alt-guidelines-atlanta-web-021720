@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_214259) do
+ActiveRecord::Schema.define(version: 2020_03_03_000032) do
 
   create_table "generators", force: :cascade do |t|
     t.string "username"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_03_02_214259) do
     t.text "post"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.integer "generator_id"
   end
 
   create_table "implementers", force: :cascade do |t|
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_03_02_214259) do
     t.string "email"
   end
 
-  create_table "saves", force: :cascade do |t|
+  create_table "stashes", force: :cascade do |t|
     t.integer "idea_id"
     t.integer "implementer_id"
   end
