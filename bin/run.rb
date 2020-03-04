@@ -24,12 +24,30 @@ def login
     user_selection = prompt.select("Please Choose One Of The Following?".red, %w(Log-In Create_New_Account Exit))
         if user_selection == 'Create_New_Account'
             puts ""
-            user_name = prompt.ask('Please Enter a User Name: ', value: "Please Enter a String")
-            user_pass = prompt.ask('Please Enter a User Password: ', value: "Please Enter a String")
-            name = prompt.ask('Please Enter Your Name: ', value: "Please Enter a String")
-            age = prompt.ask('Please Enter Your Age: ', value: "Please Enter an Integer")
-            weight = prompt.ask('Please Enter Your Weight: ', value: "Please Enter an Integer")
-            height = prompt.ask('Please Enter Your Height: ', value: "Please Enter an Integer")
+            user_name = prompt.ask('Please Enter a User Name: ', required: true) do |q|
+            q.validate(/\w/)
+            q.messages[:valid?] = 'Please Enter a String!'
+            end 
+            user_pass = prompt.ask('Please Enter a User Password: ', required: true) do |q|
+                q.validate(/\w/)
+                q.messages[:valid?] = 'Please Enter a String!'
+                end 
+            name = prompt.ask('Please Enter Your Name: ', required: true) do |q|
+                q.validate(/\w/)
+                q.messages[:valid?] = 'Please Enter a String!'
+                end 
+            age = prompt.ask('Please Enter Your Age: ', required: true) do |q|
+                q.validate(/\d/)
+                q.messages[:valid?] = 'Please Enter an Integer!'
+                end 
+            weight = prompt.ask('Please Enter Your Weight: ', required: true) do |q|
+                q.validate(/\d/)
+                q.messages[:valid?] = 'Please Enter an Integer!'
+                end 
+            height = prompt.ask('Please Enter Your Height: ', required: true) do |q|
+                q.validate(/\d/)
+                q.messages[:valid?] = 'Please Enter an Integer!'
+                end 
             @user = User.find_or_create_by(user_name: user_name, user_password: user_pass, name: name, age: age, weight: weight, height: height)
             puts ""
             puts "Congrats Your New Account is Ready. Please log-in with credentials.".blue
@@ -38,8 +56,14 @@ def login
             login
         elsif user_selection == 'Log-In'
             puts ""
-            user_name = prompt.ask('Please Enter your User Name: ')
-            user_pass = prompt.mask('Please Enter your User Password: ')
+            user_name = prompt.ask('Please Enter your User Name: ', required: true)  do |q|
+                q.validate(/\w/)
+                q.messages[:valid?] = 'Please Enter a String!'
+                end 
+            user_pass = prompt.mask('Please Enter your User Password: ', required: true)  do |q|
+                q.validate(/\w/)
+                q.messages[:valid?] = 'Please Enter a String!'
+                end 
             begin
             @user = User.find_by!(user_name: user_name)
             if user_pass == @user.user_password
@@ -145,13 +169,25 @@ def addWorkout
         puts ""
         puts "Starting Workout..."
         puts "First exercise is #{selectedWorkouts[0].name}".red
-        workout_weight1 = prompt.ask('Please Enter How Much Weight You Used: '.cyan, value: "Please Enter an Amount in Lbs")
-        workout_reps1 = prompt.ask('Please Enter How Many Reps You Completed: '.cyan, value: "Please Enter an Amount")
+        workout_weight1 = prompt.ask('Please Enter How Much Weight You Used: '.cyan, required: true)  do |q|
+            q.validate(/\d/)
+            q.messages[:valid?] = 'Please Enter an Integer!'
+            end 
+        workout_reps1 = prompt.ask('Please Enter How Many Reps You Completed: '.cyan, required: true) do |q|
+            q.validate(/\d/)
+            q.messages[:valid?] = 'Please Enter an Integer!'
+            end 
         UserWorkout.create(name: userWorkoutName, user_id: @user.id, workout_id: selectedWorkouts[0].id, workout_reps: workout_reps1, workout_weight: workout_weight1, workout_type: selectedWorkouts[0].workout_type, workout_name: selectedWorkouts[0].name, workout_time: Time.now.strftime("%Y-%m-%d %H:%M:%S"))
         puts ""
         puts "Second exercise is #{selectedWorkouts[1].name}".red
-        workout_weight2 = prompt.ask('Please Enter How Much Weight You Used: '.cyan, value: "Please Enter an Amount in Lbs")
-        workout_reps2 = prompt.ask('Please Enter How Many Reps You Completed: '.cyan, value: "Please Enter an Amount")
+        workout_weight2 = prompt.ask('Please Enter How Much Weight You Used: '.cyan, required: true) do |q|
+            q.validate(/\d/)
+            q.messages[:valid?] = 'Please Enter an Integer!'
+            end 
+        workout_reps2 = prompt.ask('Please Enter How Many Reps You Completed: '.cyan, required: true) do |q|
+            q.validate(/\d/)
+            q.messages[:valid?] = 'Please Enter an Integer!'
+            end 
         UserWorkout.create(name: userWorkoutName, user_id: @user.id, workout_id: selectedWorkouts[1].id, workout_reps: workout_reps2, workout_weight: workout_weight2, workout_type: selectedWorkouts[1].workout_type, workout_name: selectedWorkouts[1].name, workout_time: Time.now.strftime("%Y-%m-%d %H:%M:%S"))
         puts ""
         puts "Great Job!! Workout is Complete!!".cyan
@@ -192,42 +228,60 @@ def updateInfo
     user_selection = prompt.select("Please Select What You Would Like to Edit (Select Menu to Go Back)".red, %w(UserName Password Name Age Weight Height Menu))
     if user_selection == 'UserName'
         puts "Current UserName is #{@user.user_name}"
-        user_name = prompt.ask('Please Enter a New User Name: ', value: "Please Enter a String")
+        user_name = prompt.ask('Please Enter a New User Name: ', required: true) do |q|
+            q.validate(/\w/)
+            q.messages[:valid?] = 'Please Enter a String!'
+        end 
         @user.user_name = user_name
         @user.save
         puts "New User Name is #{@user.user_name}"
         updateInfo
     elsif user_selection == 'Password'
         puts "Current Password is #{@user.user_password}"
-        user_password = prompt.ask('Please Enter a New Password: ', value: "Please Enter a String")
+        user_password = prompt.ask('Please Enter a New Password: ', required: true) do |q|
+            q.validate(/\w/)
+            q.messages[:valid?] = 'Please Enter a String!'
+        end 
         @user.user_password = user_password
         @user.save
         puts "New Password is #{@user.user_password}"
         updateInfo
     elsif user_selection == 'Name'
         puts "Current Name is #{@user.name}"
-        name = prompt.ask('Please Enter a New Name: ', value: "Please Enter a String")
+        name = prompt.ask('Please Enter a New Name: ', required: true) do |q|
+            q.validate(/\w/)
+            q.messages[:valid?] = 'Please Enter a String!'
+        end 
         @user.name = name
         @user.save
         puts "New Name is #{@user.name}"
         updateInfo
     elsif user_selection == 'Age'
         puts "Current Age is #{@user.age}"
-        age = prompt.ask('Please Enter a New Age: ')
+        age = prompt.ask('Please Enter a New Age: ', required: true) do |q|
+            q.validate(/\d/)
+            q.messages[:valid?] = 'Please Enter an Integer!'
+        end 
         @user.age = age
         @user.save
         puts "New Age is #{@user.age}"
         updateInfo
     elsif user_selection == 'Weight'
         puts "Current Weight is #{@user.weight}"
-        weight = prompt.ask('Please Enter a New Weight: ')
+        weight = prompt.ask('Please Enter a New Weight: ', required: true) do |q|
+            q.validate(/\d/)
+            q.messages[:valid?] = 'Please Enter an Integer!'
+        end 
         @user.weight = weight
         @user.save
         puts "New Weight is #{@user.weight}"
         updateInfo
     elsif user_selection == 'Height'
         puts "Current Height is #{@user.height}"
-        height = prompt.ask('Please Enter a New Height: ')
+        height = prompt.ask('Please Enter a New Height: ', required: true) do |q|
+            q.validate(/\d/)
+            q.messages[:valid?] = 'Please Enter an Integer!'
+        end 
         @user.height = height
         @user.save
         puts "New Height is #{@user.height}"
