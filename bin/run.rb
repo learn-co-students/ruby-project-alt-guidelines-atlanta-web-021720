@@ -189,7 +189,7 @@ end
 ####Updates User Information(Works!)
 def updateInfo
     prompt = TTY::Prompt.new(active_color: :cyan)
-    user_selection = prompt.select("Please Select What You Would Like to Edit(Select Menu to Go Back)".red, %w(UserName Password Name Age Weight Height Menu))
+    user_selection = prompt.select("Please Select What You Would Like to Edit (Select Menu to Go Back)".red, %w(UserName Password Name Age Weight Height Menu))
     if user_selection == 'UserName'
         puts "Current UserName is #{@user.user_name}"
         user_name = prompt.ask('Please Enter a New User Name: ', value: "Please Enter a String")
