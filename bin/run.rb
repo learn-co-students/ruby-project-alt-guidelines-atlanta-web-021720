@@ -64,7 +64,7 @@ def login
                 q.validate(/\w/)
                 q.messages[:valid?] = 'Please Enter a String!'
                 end 
-            begin
+            # begin
             @user = User.find_by!(user_name: user_name)
             if user_pass == @user.user_password
                 userMenu
@@ -75,13 +75,13 @@ def login
                puts  "Please enter the correct password!"
                login
             end 
-            rescue 
-                3.times do 
-                    puts ""
-                end
-                puts "User not found!!Please try again"
-                login
-            end 
+            # rescue 
+            #     3.times do 
+            #         puts ""
+            #     end
+            #     puts "User not found!!Please try again"
+            #     login
+            # end 
         elsif user_selection == 'Exit'
             puts""
             puts "Don't Leave yet! Come Back and Get Your Swole On!"
@@ -118,7 +118,7 @@ def userMenu
     puts "            Welcome #{@user.name}!!"
     puts ""
     prompt = TTY::Prompt.new(active_color: :bright_red)
-    user_selection = prompt.select("What Would You Like To Do?".cyan, %w(Update_Info Add_Workout View_Past_Workouts Delete_Account Log-Out))
+    user_selection = prompt.select("What Would You Like To Do?".cyan, %w(Update_Info Start_New_Workout View_Past_Workouts Top_Performers Health_is_Wealth Delete_Account Log-Out))
     if user_selection == 'Log-Out'
         puts ""
         puts "               ***********============".red
@@ -131,12 +131,16 @@ def userMenu
         puts "                  Come Back Soon".blue
         puts ""
         exit!
-    elsif user_selection == 'Add_Workout'
+    elsif user_selection == 'Start_New_Workout'
         addWorkout
     elsif user_selection == 'Update_Info'
         updateInfo
     elsif user_selection == 'View_Past_Workouts'
         displayWorkout 
+    elsif user_selection == 'Top_Performers'
+        topPerformers
+    elsif user_selection == 'Health_is_Wealth'
+        healthTips
     elsif user_selection == 'Delete_Account'
         deleteAccount
     end
@@ -291,10 +295,54 @@ def updateInfo
     end 
 end
 
+
+####Displays a leaderboard of the top performers
+def topPerformers
+    sortedPerformers = {}
+    User.all.each do |user|
+    workoutAmount = UserWorkout.find_each.select{|workout|workout.user_id == user.id}
+    sortedPerformers[user.name] = workoutAmount.length
+    end 
+    count = 1
+    finalHash = sortedPerformers.sort_by {|k, v| -v}
+    puts "OneMoreRep's Top Performers"
+    puts "User's name and their exercise log amount".red
+    puts "##############################################".cyan
+    finalHash.each do |key, value|
+        puts "#{count}. #{key} #{value}"
+        count +=1 
+    end
+    prompt = TTY::Prompt.new(active_color: :cyan)
+    puts ""
+    user_selection = prompt.select("Feeling Motivated Or Nah?".red, %w(Start_A_New_Workout_And_Rise_To_The_Top Head_Back_To_Menu))
+    if user_selection == 'Start_A_New_Workout_And_Rise_To_The_Top'
+        addWorkout  
+    elsif user_selection == 'Head_Back_To_Menu'
+        userMenu
+    end 
+end 
+
+####Method to start the application
 def run_cli
     login
 end
 
+####Displays a randomn Health tip to the user
+def healthTips
+    prompt = TTY::Prompt.new(active_color: :cyan)
+    healthtips = ["Eat a variety of foods.", "Base your diet on plenty of foods rich in carbohydrates.", "Replace saturated with unsaturated fat.",
+                "Enjoy plenty of fruits and vegetables.", "Reduce salt and sugar intake.", "Eat regularly, control the portion size.", "Drink plenty of fluids.",
+                "Maintain a healthy body weight."]
+    puts ""
+    puts "A little birdie told me...."
+    puts "          #{healthtips.sample}"
+    puts ""
+    user_selection = prompt.select("Want to Head Back?".red, %w(Go_Back))
+    if user_selection == 'Go_Back'
+        userMenu
+    end
+end
 
+####Calls the run_cli method to start the app
 run_cli
 
