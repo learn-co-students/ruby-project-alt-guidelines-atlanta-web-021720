@@ -21,8 +21,8 @@ def login
     puts "         Welcome to OneMoreRep!!"
     puts ""
     prompt = TTY::Prompt.new(active_color: :cyan)
-    user_selection = prompt.select("Please Choose One Of The Following?".red, %w(Log-In Create_New_Account Exit))
-        if user_selection == 'Create_New_Account'
+    user_selection = prompt.select("Please Choose One Of The Following?".red, (["Log-In", "Create New Account", "Exit"]))
+        if user_selection == 'Create New Account'
             puts ""
             user_name = prompt.ask('Please Enter a User Name: ', required: true) do |q|
             q.validate(/\w/)
@@ -118,7 +118,7 @@ def userMenu
     puts "            Welcome #{@user.name}!!"
     puts ""
     prompt = TTY::Prompt.new(active_color: :bright_red)
-    user_selection = prompt.select("What Would You Like To Do?".cyan, %w(Update_Info Start_New_Workout View_Past_Workouts Top_Performers Health_is_Wealth Delete_Account Log-Out))
+    user_selection = prompt.select("What Would You Like To Do?".cyan, (["Update Info", "Start New Workout", "View Past Workouts", "Top Performers", "Health is Wealth", "Delete Account", "Log-Out"]))
     if user_selection == 'Log-Out'
         puts ""
         puts "               ***********============".red
@@ -131,17 +131,17 @@ def userMenu
         puts "                  Come Back Soon".blue
         puts ""
         exit!
-    elsif user_selection == 'Start_New_Workout'
+    elsif user_selection == 'Start New Workout'
         addWorkout
-    elsif user_selection == 'Update_Info'
+    elsif user_selection == 'Update Info'
         updateInfo
-    elsif user_selection == 'View_Past_Workouts'
+    elsif user_selection == 'View Past Workouts'
         displayWorkout 
-    elsif user_selection == 'Top_Performers'
+    elsif user_selection == 'Top Performers'
         topPerformers
-    elsif user_selection == 'Health_is_Wealth'
+    elsif user_selection == 'Health is Wealth'
         healthTips
-    elsif user_selection == 'Delete_Account'
+    elsif user_selection == 'Delete Account'
         deleteAccount
     end
 end
@@ -149,8 +149,8 @@ end
 ####Deletes a user account (Works!)
  def deleteAccount 
     prompt = TTY::Prompt.new(active_color: :bright_red)
-    user_selection = prompt.select('Are you sure you want to delete your account!?!?'.red, %w(Yes,_sadly_I_want_to.. No,_I_changed_my_mind!))
-    if user_selection == 'Yes,_sadly_I_want_to..'
+    user_selection = prompt.select('Are you sure you want to delete your account!?!?'.red, (["Yes, sadly I want to..", "No, I changed my mind!"]))
+    if user_selection == 'Yes,sadly I want to..'
         User.delete(@user.id)
         puts "#########################".red
         puts "#########################".cyan
@@ -168,7 +168,7 @@ def addWorkout
     puts ""
     user_selection = prompt.select("Which part of the body do you want to focus on?".red, %w(UpperBody LowerBody))
     puts ""
-    userWorkoutName = prompt.select("What kind of workout is this?".red, %w(Morning_Workout Afternoon_Workout Evening_Workout))
+    userWorkoutName = prompt.select("What kind of workout is this?".red, (["Morning Workout", "Afternoon Workout", "Evening Workout"]))
     selectedWorkouts = Workout.find_each.select { |workout| workout.workout_type == user_selection }
         puts ""
         puts "Starting Workout..."
@@ -218,8 +218,8 @@ def displayWorkout
     end
     puts ""
     puts ""
-    user_selection = prompt.select("What Would You Like to Do Now?".red, %w(Start_New_Workout Menu))
-    if user_selection == 'Start_New_Workout'
+    user_selection = prompt.select("What Would You Like to Do Now?".red, (["Start New Workout", "Menu"]))
+    if user_selection == "Start New Workout"
         addWorkout  
     elsif user_selection == 'Menu'
         userMenu
@@ -314,10 +314,10 @@ def topPerformers
     end
     prompt = TTY::Prompt.new(active_color: :cyan)
     puts ""
-    user_selection = prompt.select("Feeling Motivated Or Nah?".red, %w(Start_A_New_Workout_And_Rise_To_The_Top Head_Back_To_Menu))
-    if user_selection == 'Start_A_New_Workout_And_Rise_To_The_Top'
+    user_selection = prompt.select("Feeling Motivated Or Nah?".red, (["Start A New Workout And Rise To The Top", "Head Back To Menu"]))
+    if user_selection == 'Start A New Workout And Rise To The Top'
         addWorkout  
-    elsif user_selection == 'Head_Back_To_Menu'
+    elsif user_selection == 'Head Back To Menu'
         userMenu
     end 
 end 
@@ -337,8 +337,8 @@ def healthTips
     puts "A little birdie told me...."
     puts "          #{healthtips.sample}"
     puts ""
-    user_selection = prompt.select("Want to Head Back?".red, %w(Go_Back))
-    if user_selection == 'Go_Back'
+    user_selection = prompt.select("Want to Head Back?".red, (["Go Back"]))
+    if user_selection == 'Go Back'
         userMenu
     end
 end
