@@ -72,8 +72,8 @@ def login
                 3.times do 
                     puts ""
                 end
-               puts  "Please enter the correct password!"
-               login
+            puts  "Please enter the correct password!"
+            login
             end 
             rescue 
                 3.times do 
