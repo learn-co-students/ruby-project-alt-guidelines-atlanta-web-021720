@@ -14,9 +14,9 @@ the application. Go to the github url:
  so please be careful with what your enter. Most options include what should be entered. Once you gain 
  access to your account, you have a few options.You can update your personal information, add/log a workout, view past all workouts, delete your account, and lastly log out. 
  ##### Menu Options #####
- Update Info - allows a user to change their personal information such as their UserName, Password,
+Update Info - allows a user to change their personal information such as their UserName, Password,
                 Name, Age, Weight, and Height. Feel free to update your information as much as you'd like. Once your finished updating, select Menu to return to the Account Home.
-Add Workout - allows a user to add/log a workout. Once selected choose UpperBody or LowerBody to 
+Start New Workout - allows a user to add/log a workout. Once selected choose UpperBody or LowerBody to 
               proceed. Choose a time setting for the workout. This will begin the Logger. Follow 
               through the prompts to correctly answer the questions. Once Exercise is complete, The user will be redirected to the Account Home. The terminal will also display what your workout
               consisted of. 
@@ -24,6 +24,10 @@ View Past Workouts - allows a user to view all of their completed workouts. This
               User, the workout time, workout name, workout type, exercise name, how much you lifted,
               and how many reps you did. Here you have the option to start a new workout if your 
               feeling motivated by past results, or return to the Account Home.
+Top Performers - Displays all of the top performers of the application. Watch your 
+                name rise to the top by successfully completing workouts. Also includes a option to begin a 
+                new workout if you're feeling motivated by the results.
+Health is Weath - Displays a randomn health fact to promote a healthy lifestyle!
 Delete Account - allows a user to delete their account if they desire to. Once selected another prompt 
               will ensure you really want to the delete the account or not. If you change your mind you 
               have the option of returning to the Account Home. Choosing Yes will delete the account, and the application will terminate.
