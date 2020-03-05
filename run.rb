@@ -64,7 +64,7 @@ def login
                 q.validate(/\w/)
                 q.messages[:valid?] = 'Please Enter a String!'
                 end 
-            # begin
+            begin
             @user = User.find_by!(user_name: user_name)
             if user_pass == @user.user_password
                 userMenu
@@ -75,13 +75,13 @@ def login
                puts  "Please enter the correct password!"
                login
             end 
-            # rescue 
-            #     3.times do 
-            #         puts ""
-            #     end
-            #     puts "User not found!!Please try again"
-            #     login
-            # end 
+            rescue 
+                3.times do 
+                    puts ""
+                end
+                puts "User not found!!Please try again"
+                login
+            end 
         elsif user_selection == 'Exit'
             puts""
             puts "Don't Leave yet! Come Back and Get Your Swole On!"
