@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_000032) do
+ActiveRecord::Schema.define(version: 2020_03_05_124612) do
 
-  create_table "generators", force: :cascade do |t|
-    t.string "username"
-    t.string "email"
+  create_table "idea_tags", force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "idea_id"
   end
 
   create_table "ideas", force: :cascade do |t|
@@ -22,17 +22,29 @@ ActiveRecord::Schema.define(version: 2020_03_03_000032) do
     t.text "post"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "generator_id"
+    t.integer "user_id"
+    t.string "category"
   end
 
-  create_table "implementers", force: :cascade do |t|
-    t.string "username"
-    t.string "email"
+  create_table "pleases", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "idea_id"
   end
 
   create_table "stashes", force: :cascade do |t|
     t.integer "idea_id"
-    t.integer "implementer_id"
+    t.integer "user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "tag"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.string "email"
+    t.string "user_type"
   end
 
 end
