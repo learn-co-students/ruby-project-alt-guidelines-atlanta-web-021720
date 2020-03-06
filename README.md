@@ -17,29 +17,30 @@ After cloning, navigate to the project folder. Run Bundle Install and then run t
 
 ## How it Works
 
-(.imgs/welcome_page.png)
+![Welcome Screen for Think Tank](.imgs/welcome_page.png "Welcome Page")
 
 Think Tank is a place to share ideas you hope to someone will make, or look for ideas to create. On Think Tank, users are either Generators, idea-creators, or Implementers, idea-producers. 
 
 Here at Think Tank, we know the value of a good idea, and want to make the world a better place by connecting ideas to people who can make it happen.
 
-(.imgs/page_two.png)
-(.imgs/create_user_options.png)
+![App landing page](.imgs/page_two.png "Landing page")
+![Options for creating new user screenshot](.imgs/create_user_options.png "New user options")
 
 Generators can post ideas, edit and browse, and click "Yes, Please!" to save another idea as something they'd like to see created.
 
-(.imgs/generator_landing.png)
-(.imgs/generator_view.png)
+![Screenshot of Generator user creation](.imgs/generator_landing.png "Generator")
+![Screenshot of Generator menu](.imgs/generator_view.png "Generator menu")
 
 Implementers can browse ideas and stash them.
 
-(.imgs/implementer_landing.png)
-(.imgs/implementer_view.png)
+![Screenshot of Implementer user creation](.imgs/implementer_landing.png "Implementer")
+![Screenshot of Implementer menu](.imgs/implementer_view.png "Implementer")
 
 Explore and enjoy! For suggested improvements and bug fixes, please submit a pull request. Thanks!
----
----
----
+
+
+
+
 
 ### What's the story behind this app?
 
