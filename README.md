@@ -3,7 +3,7 @@ Think Tank CLI Application
 by Laura Archambault, Software Engineer
 
 This application was created as a project demonstrating Object-Oriented Ruby and ActiveRecord during my third week of school at The Flatiron School, Atlanta.
----
+
 
 ## Installation
 
