@@ -34,6 +34,7 @@ Delete Account - allows a user to delete their account if they desire to. Once s
 Log-Out -   allows a user to log out of the application and terminates the program. 
  ##### Conclusion #####
 I hope you enjoyed using OneMoreRep and if you have any ideas on how to improve the application 
-please submit a pull request. 
+please submit a pull request. Also, if you would like to see a video demonstration here is a link to 
+a YouTube video I created: https://www.youtube.com/watch?v=Wukv_H6P6Pk
 
 
