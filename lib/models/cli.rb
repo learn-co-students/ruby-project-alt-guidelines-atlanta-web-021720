@@ -270,8 +270,6 @@ class CommandLineInterface
     end
         
     def create_please(idea)
-        #called by generator/implementer_browse_all
-        #called by search_ideas_by_keyword
         system "clear"
         prompt = TTY::Prompt.new
         give_space
@@ -323,7 +321,7 @@ class CommandLineInterface
         idea.category = category
         idea.save
         id = @user.id
-        @user = User.find(id)
+        @user = User.find_by(id)
         give_space
         give_space
         prompt.keypress("Edits saved! \n\nPress any key to continue...", timeout: 3)
@@ -360,7 +358,7 @@ class CommandLineInterface
         puts "Removing..."
         please.destroy
         id = @user.id
-        @user = User.find(id)
+        @user = User.find_by(id)
         give_space
         give_space
         prompt.keypress("All done! This idea has been removed from your list. 
@@ -534,7 +532,7 @@ class CommandLineInterface
         puts "stashing..."
         Stash.create(user_id: @user.id, idea_id: idea.id)
         id = @user.id
-        @user = User.find(id)
+        @user = User.find_by(id)
         give_star_divider
         give_space
         give_space
@@ -579,7 +577,7 @@ class CommandLineInterface
         stash.destroy
         stash.save
         id = @user.id
-        @user = User.find(id)
+        @user = User.find_by(id)
         give_space
         give_space
         prompt.keypress("All done! This idea has been removed from your stash. 
