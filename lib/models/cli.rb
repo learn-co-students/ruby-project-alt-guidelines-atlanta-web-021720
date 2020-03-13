@@ -1,7 +1,4 @@
 
-# prompt = TTY::Prompt.new
-#available idea calls: [idea].implementers, [user].stashed_ideas, [user].pleased_ideas
-#keep generators from being able to 'Yes, Please!' own ideas
 
 
 class CommandLineInterface
@@ -21,7 +18,6 @@ class CommandLineInterface
         puts "   Welcome to    T H I N K   T A N K       "
         puts "               /   /  / | || | \\  \\   \\    "
         give_space
-        #puts more space and a tagline explaining the platform
     end
 
     def landing_page
@@ -65,8 +61,6 @@ class CommandLineInterface
     end
 
     def run_gen_or_imp_prompts
-        #called by login
-        #called by log_in_or_create?
         if @user.user_type == "Generator"
             generator_prompt
         elsif @user.user_type == "Implementer"
@@ -77,10 +71,6 @@ class CommandLineInterface
 
 
 ##############################################################################################
-##############################################################################################
-    # private
-
-
 ##############################################################################################
     #log_in_or_create? 
 
@@ -150,7 +140,6 @@ class CommandLineInterface
     end
 
     def login
-        #called by log_in_or_create?
         prompt = TTY::Prompt.new
         give_space
         give_space
@@ -196,7 +185,6 @@ class CommandLineInterface
             end
         give_space
         generator_prompt
-        #stretch: type "help" at any time for more info
     end
 ####################################
     def generator_browse_menu
@@ -227,9 +215,6 @@ class CommandLineInterface
             print_idea_with_generator(idea)
             response = prompt.select("View next idea, 'Yes, Please!', or Quit browsing.", (["Next", "Yes, Please!", "Quit"]))
             break if response == "Quit"
-            # if response == "Quit"
-            #     generator_browse_menu
-            # end
             if response == "Yes, Please!"
                 create_please(idea)
             end
@@ -291,7 +276,7 @@ class CommandLineInterface
             3.times do 
                 give_space 
             end
-            puts "You haven't shared any ideas yet!"
+            prompt.keypress("You haven't shared any ideas yet!", timeout: 3)
         else
             @user.ideas.each do |idea|
                 print_idea_without_generator(idea)
@@ -321,7 +306,7 @@ class CommandLineInterface
         idea.category = category
         idea.save
         id = @user.id
-        @user = User.find_by(id)
+        @user = User.find(id)
         give_space
         give_space
         prompt.keypress("Edits saved! \n\nPress any key to continue...", timeout: 3)
@@ -329,7 +314,6 @@ class CommandLineInterface
 
 #######################################
     def view_pleases
-        #called by generator_prompt
         system "clear"
         prompt = TTY::Prompt.new
         if @user.pleases.count == 0
@@ -337,7 +321,7 @@ class CommandLineInterface
             3.times do 
                 give_space
             end
-            puts "You haven't said 'Yes, Please!' to any ideas yet!"
+            prompt.keypress("You haven't said 'Yes, Please!' to any ideas yet!", timeout: 3)
         else
             @user.pleases.each do |please|
                 print_idea_without_generator(please.idea)
@@ -358,7 +342,7 @@ class CommandLineInterface
         puts "Removing..."
         please.destroy
         id = @user.id
-        @user = User.find_by(id)
+        @user = User.find(id)
         give_space
         give_space
         prompt.keypress("All done! This idea has been removed from your list. 
@@ -374,7 +358,6 @@ class CommandLineInterface
         lc_response = response.downcase
         give_space
         puts "Preparing your results..."
-        #stretch: allow user to search by entering mutiple words
         keyword_ideas = []
         Idea.find_each do |idea|
             if idea.title.downcase.include? lc_response
@@ -384,12 +367,6 @@ class CommandLineInterface
         if keyword_ideas.count == 0
             puts "No ideas found with #{response} in the title."
         else
-        #below provides separate browse menus for generators & implementers so:
-        # Gens can 'Yes, Please!'
-        # Gens can't stash ideas
-        # Gens can't 'Yes, Please!' their own ideas
-        # Imps can stash ideas
-        # Imps can't 'Yes, Please'
             if @user.user_type == "Generator"
                 keyword_ideas.each do |idea|
                     if idea.user == self
@@ -486,8 +463,6 @@ class CommandLineInterface
             end
         give_space
         implementer_prompt
-        #What would you like to do? type "help" at any time for more info
-        #need implementer to be able to stash from keyword search
     end
 
 
@@ -532,7 +507,7 @@ class CommandLineInterface
         puts "stashing..."
         Stash.create(user_id: @user.id, idea_id: idea.id)
         id = @user.id
-        @user = User.find_by(id)
+        @user = User.find(id)
         give_star_divider
         give_space
         give_space
@@ -540,10 +515,6 @@ class CommandLineInterface
         Press any key to continue, resumes automatically in 3 seconds ...", timeout: 3)
         give_space
         give_space
-        # puts "Please login to refresh stashes."
-        # give_space
-        # give_space
-        # login
     end
 
 ####################################
@@ -555,7 +526,7 @@ class CommandLineInterface
             3.times do
                 give_space
             end
-            puts "You haven't stashed any ideas yet!"
+            prompt.keypress("You haven't stashed any ideas yet!", timeout: 3)
         else
             @user.stashes.each do |stash|
                 print_idea_with_generator(stash.idea)
@@ -577,7 +548,7 @@ class CommandLineInterface
         stash.destroy
         stash.save
         id = @user.id
-        @user = User.find_by(id)
+        @user = User.find(id)
         give_space
         give_space
         prompt.keypress("All done! This idea has been removed from your stash. 
